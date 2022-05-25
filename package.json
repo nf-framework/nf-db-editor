@@ -1,0 +1,33 @@
+{
+    "name": "@nfjs/db-editor",
+    "version": "1.0.0",
+    "description": "Editing database objects",
+    "license": "MIT",
+    "type": "module",
+    "main": "index.js",
+    "repository": {
+        "url": "https://github.com/nf-framework/nf-db-editor.git"
+    },
+    "author": {
+        "name": "Andrey Maksimov",
+        "email": "andrmaxmail@gmail.com"
+    },
+    "contributors": [
+        {
+            "name": "Dmitry Boikov",
+            "email": "boikovdv@gmail.com"
+        },
+        {
+            "name": "Azat Yamalov",
+            "email": "yamalov.azat@live.com"
+        }
+    ],
+    "dependencies": {
+        "@nfjs/back": "^1.0.0",
+        "@nfjs/dbo-compare": "^1.0.0"
+    },
+    "exports": {
+        ".": "./index.js",
+        "./nf-module.js": "./nf-module.js"
+    }
+}

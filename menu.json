@@ -1,0 +1,10 @@
+[
+    {
+        "caption":  "Объекты базы данных",
+        "path":     "Инструменты разработчика",
+        "form":     "db-editor.objects",
+        "icon":     "database",
+        "guid":     "f47aba02-916e-4263-a01c-622899bce540",
+        "order":    10
+    }
+]
