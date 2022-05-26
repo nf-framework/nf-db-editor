@@ -1,4 +1,4 @@
-import { html } from "polylib";
+import { html, css } from "polylib";
 import { PlForm } from "@nfjs/front-pl/components/pl-form.js";
 
 export default class DbEditorTriger extends PlForm {
@@ -24,6 +24,14 @@ export default class DbEditorTriger extends PlForm {
         }
     }
 
+    static get css() {
+        return css` 
+            pl-icon {
+                cursor: pointer;
+            }
+        `
+    }
+
     static get template() {
         return html`
             <pl-card fit>
@@ -34,20 +42,20 @@ export default class DbEditorTriger extends PlForm {
                 <pl-flex-layout vertical>
                     <pl-flex-layout>
                         <pl-flex-layout vertical>
-                            <pl-input label="Наименование" value="{{trig.name}}" variant="horizontal"  required>
-                                <pl-icon-button slot="suffix" iconset="pl-default" icon="reload" on-click="[[genName]]"></pl-icon-button>
+                            <pl-input label="Наименование" value="{{trig.name}}" variant="horizontal" required>
+                                <pl-icon slot="suffix" iconset="pl-default" icon="reload" on-click="[[genName]]"></pl-icon>
                             </pl-input>
                             <pl-combobox label="Схема таблицы" value="{{trig.schema}}" variant="horizontal" required value-property="code" text-property="code" data="[[schemas]]"></pl-combobox>
                             <pl-combobox label="Наименование таблицы" value="{{trig.tablename}}" variant="horizontal" required data="[[tabl]]" value-property="code" text-property="code"></pl-combobox>
                             <pl-input label="Описание" value="{{trig.description}}" variant="horizontal"></pl-input>
                             <pl-radio-group label="Момент срабатывания" selected="{{trig.act_timing}}" variant="horizontal" required>
-                                <pl-radio-button name="before" caption="До"></pl-radio-button>
-                                <pl-radio-button name="after" caption="После"></pl-radio-button>
-                                <pl-radio-button name="instead of" caption="Вместо"></pl-radio-button>
+                                <pl-radio-button name="before" label="До"></pl-radio-button>
+                                <pl-radio-button name="after" label="После"></pl-radio-button>
+                                <pl-radio-button name="instead of" label="Вместо"></pl-radio-button>
                             </pl-radio-group>
                             <pl-radio-group label="Объем срабатывания" selected="{{trig.act_scope}}" variant="horizontal" required>
-                                <pl-radio-button name="row" caption="Построчно"></pl-radio-button>
-                                <pl-radio-button name="statement" caption="Оператор"></pl-radio-button>
+                                <pl-radio-button name="row" label="Построчно"></pl-radio-button>
+                                <pl-radio-button name="statement" label="Оператор"></pl-radio-button>
                             </pl-radio-group>
                             <pl-combobox label="Триггер - ограничение" value="{{trig.constr}}" data="[[constr]]" variant="horizontal" value-property="id" text-property="caption" required></pl-combobox>
                         </pl-flex-layout>
