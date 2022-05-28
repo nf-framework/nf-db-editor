@@ -239,8 +239,8 @@ export default class DbEditorFunction extends PlForm {
             }
         }
         try {
-            const _fnc = this._cloneDeep(this.fnc);
-            this.$.obsFnc.clear(_fnc);
+            const _fnc = cloneDeep(this.fnc);
+            clearObj(_fnc);
             await this.$.aDiffExec.execute({
                 newObj: this.fnc,
                 oldObj: this.fncOld
