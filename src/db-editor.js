@@ -34,7 +34,7 @@ async function getOptions(context) {
  * @returns {Promise<void>}
  */
 async function executeGrant(context, args) {
-    const { grantAllFunction } = args;
+    const { grantAllFunction = 'nfc.f_db8grant_all' } = args;
     if (grantAllFunction) {
         await dbapi.func(grantAllFunction, {}, { context });
     }

@@ -17,7 +17,8 @@ export default class DbEditorObjects extends PlForm {
             objects: { value: () => ([]) },
             objectsInWork: { value: () => ([]) },
             activeObjSchema: { },
-            objectActiveTab: { }
+            objectActiveTab: { },
+            options: { },
         }
     }
 
@@ -119,9 +120,12 @@ export default class DbEditorObjects extends PlForm {
             <pl-dataset id="dsObjSchemas" data="{{objSchemas}}" endpoint="/@nfjs/back/endpoint-sql/db-editor.object-schemas"></pl-dataset>
             <pl-dataset id="dsObj" data="{{objects}}" args="[[_compose('schema;type',activeObjSchema.code,selectedObjType)]]" execute-on-args-change required-args="schema" endpoint="/@nfjs/back/endpoint-sql/db-editor.objects"></pl-dataset>
             <pl-action id="aDropObject" endpoint="/@nfjs/db-editor/drop"></pl-action>
+            <pl-action id="aGrantAll" endpoint="/@nfjs/db-editor/executeGrant"></pl-action>
+            <pl-action id="aGetOptions" endpoint="/@nfjs/db-editor/getOptions" data="{{options}}"></pl-action>
 		`;
     }
     onConnect() {
+        this.$.aGetOptions.execute();
         this.$.dsObjSchemas.execute()
             .then(() => {
                 if (this.objSchemas?.[0]) this.activeObjSchema = this.objSchemas[0];
@@ -206,7 +210,9 @@ export default class DbEditorObjects extends PlForm {
     onAddSchema() { alert('Not implemented') }
 
     onNewQuery() { alert('Not implemented') }
-    onGrantAll() {  }
+    onGrantAll() {
+        this.$.aGrantAll.execute({grantAllFunction: this.options?.grantAllFunction});
+    }
 
     onMenuObjectNew(event) {
         this.$.ddMenuObjectNew.open(event.target);
@@ -215,8 +221,6 @@ export default class DbEditorObjects extends PlForm {
     onMenuMain(event) {
         this.$.ddMenuMain.open(event.target);
     }
-
-
 
     setSelectedObjTypeAll() {
         this.selectedObjType = 'all';
@@ -236,6 +240,4 @@ export default class DbEditorObjects extends PlForm {
     setSelectedObjTypeSequence() {
         this.selectedObjType = 'sequence';
     }
-
-
 }
