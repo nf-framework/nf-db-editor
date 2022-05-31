@@ -171,7 +171,7 @@ export default class DbEditorFunction extends PlForm {
                 this.$.doFnc.snapshot();
                 _fnc = cloneDeep(this.fnc);
                 Object.keys(fnc).forEach((k) => {
-                    this.set([`fnc.${k}`], fnc[k]);
+                    this.set(`fnc.${k}`, fnc[k]);
                 })
             } else {
                 fnc.$action = 'upd';
