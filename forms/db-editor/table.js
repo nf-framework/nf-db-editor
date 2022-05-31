@@ -72,7 +72,8 @@ export default class DbEditorTable extends PlForm {
                 type: Object,
                 value: () => ({
                     ix_columns: []
-                })
+                }),
+                observer: '_changeCurCons'
             },
             config: {
                 type: Object,
@@ -308,7 +309,7 @@ export default class DbEditorTable extends PlForm {
                 <pl-dropdown-menu-item label="Индекс" on-click="[[addColumnIndex]]"></pl-dropdown-menu-item>
                 <pl-dropdown-menu-item label="Ограничение" on-click="[[addColumnConstraint]]"></pl-dropdown-menu-item>
             </pl-dropdown-menu>
-            <pl-data-observer id="doTabl" data="{{tabl}}" paths="data" is-changed="{{hasChanges}}"></pl-data-observer>
+            <pl-data-observer id="doTabl" data="{{tabl}}" is-changed="{{hasChanges}}"></pl-data-observer>
             <pl-action id="aGetDefinition" endpoint="/@nfjs/db-editor/dbo-compare/table/get"></pl-action>
             <pl-action id="aDiff" endpoint="/@nfjs/db-editor/dbo-compare/table/diff"></pl-action>
             <pl-action id="aDiffExec" endpoint="/@nfjs/db-editor/dbo-compare/table/diffexec"></pl-action>
@@ -842,6 +843,12 @@ export default class DbEditorTable extends PlForm {
                 this._toggleRefColumn(name, false, {keepColumn: true});
             }
         }
+    }
+
+    _changeCurCons(value, oldValue, mutation) {
+        if (!this.dataReady) return;
+        const idx = this.tabl.cons.indexOf(value);
+        this.set(`tabl.cons.${idx}`, value);
     }
 
     showColumnMenu(event) {
