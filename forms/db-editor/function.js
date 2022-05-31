@@ -1,4 +1,4 @@
-import { html } from "polylib";
+import { html, css } from "polylib";
 import { PlForm } from "@nfjs/front-pl/components/pl-form.js";
 import { cloneDeep, clearObj } from "@nfjs/core/api/common";
 
@@ -51,9 +51,17 @@ export default class DbEditorFunction extends PlForm {
         }
     }
 
+    static get css() {
+        return css`
+            .code {
+                height: 400px;
+            }
+        `
+    }
+
     static get template() {
         return html`
-            <pl-flex-layout fit vertical scrollable>
+            <pl-flex-layout fit vertical>
                 <pl-flex-layout>
                     <pl-button label="Выполнить" variant="primary" disabled="[[disableExec(hasChanges,invalid)]]" on-click="[[exec]]"></pl-button>
                     <pl-button label="Просмотр" on-click="[[showCode]]"></pl-button>
@@ -131,7 +139,7 @@ export default class DbEditorFunction extends PlForm {
                         <pl-icon-button iconset="pl-default" slot="header-suffix" icon="plus-s" variant="ghost" on-click="[[addArg]]"></pl-icon-button>
                     </pl-card>  
                     <pl-card header="Код" fit>
-                        <pl-codeeditor value="{{fnc.body}}" editor="{{editor}}" mode="ace/mode/sql"></pl-codeeditor>
+                        <pl-codeeditor value="{{fnc.body}}" editor="{{editor}}" class="code" mode="ace/mode/sql"></pl-codeeditor>
                     </pl-card>
                 </pl-flex-layout>    
                 <pl-valid-observer invalid="{{invalid}}"></pl-valid-observer>
