@@ -148,6 +148,7 @@ export default class DbEditorFunction extends PlForm {
             <pl-action id="aGetDefinition" endpoint="/@nfjs/db-editor/dbo-compare/function/get"></pl-action>
             <pl-action id="aDiff" endpoint="/@nfjs/db-editor/dbo-compare/function/diff"></pl-action>
             <pl-action id="aDiffExec" endpoint="/@nfjs/db-editor/dbo-compare/function/diffexec"></pl-action>
+            <pl-dataset id="dsCheckExists" endpoint="/@nfjs/back/endpoint-sql/db-editor.function-exists"></pl-dataset>
             <pl-dataset id="dsSchemas" data="{{schemas}}" endpoint="/@nfjs/back/endpoint-sql/db-editor.object-schemas"></pl-dataset>
             <pl-dataset id="dsDatatypes" data="{{dataTypes}}" endpoint="/@nfjs/back/endpoint-sql/db-editor.datatypes"></pl-dataset>
             <pl-dataset id="dsLangs" data="{{langs}}" endpoint="/@nfjs/back/endpoint-sql/db-editor.code-languages"></pl-dataset>
@@ -237,12 +238,21 @@ export default class DbEditorFunction extends PlForm {
     async exec (event){
         // проверить при создании новой функции что еще нет такой в бд и запросить подтверждение
         if (this.fnc.$action === 'add') {
-            const resCheck = await this.$.aCheckExists.execute({
+            const resCheck = await this.$.dsCheckExists.execute({
                 schema: this.fnc.schema,
                 name: this.fnc.name
             });
-            if (resCheck && resCheck.exist) {
-                const confirmRes = await NF.showConfirm(`В базе данных уже присуствует функция ${this.fnc.schema}.${this.fnc.name}. Продолжить создание новой?`);
+            if (resCheck && resCheck[0].exist) {
+                const confirmRes = await this.showConfirm(
+                    `В базе данных уже присутствует функция ${this.fnc.schema}.${this.fnc.name}. Продолжить создание новой?`,
+                    {
+                        header: 'Внимание',
+                        buttons: [
+                            {label: 'Нет', variant: 'secondary', action: false},
+                            {label: 'Да', variant: 'primary', action: true}
+                        ]
+                    }
+                );
                 if (!confirmRes) return;
             }
         }
@@ -257,16 +267,24 @@ export default class DbEditorFunction extends PlForm {
             this.observerWork();
             this.fncOld = _fnc;
         } catch(e) {
-            const { nfStack } = this.$.aDiffExec.lastExecuteInfo;
-            const position = NF.getPath(nfStack, '0.detail.position');
-            if (position && position > 0) {
-                const { script } = await this.$.aDiff.execute({
-                    newObj: this.fnc,
-                    oldObj: this.fncOld
-                });
-                const bodyPos = script.indexOf(this.fnc.body);
-                const pos = position - bodyPos;
-                this.navigateToPosition(pos);
+            const nfStack = this.$.aDiffExec?.lastExecuteInfo?.nfStack;
+            if (nfStack) {
+                const position = NF.getPath(nfStack, '0.detail.position');
+                if (position && position > 0) {
+                    const {script} = await this.$.aDiff.execute({
+                        newObj: this.fnc,
+                        oldObj: this.fncOld
+                    });
+                    const bodyPos = script.indexOf(this.fnc.body);
+                    const pos = position - bodyPos;
+                    this.navigateToPosition(pos);
+                }
+            } else {
+                let msg = e.message;
+                if (e instanceof Response) {
+                    msg = await e.text();
+                }
+                await this.showAlert(msg);
             }
         }
     }
