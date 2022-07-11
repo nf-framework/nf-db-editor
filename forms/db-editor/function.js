@@ -70,18 +70,18 @@ export default class DbEditorFunction extends PlForm {
                     <pl-card header="Определение">
                         <pl-flex-layout>
                             <pl-flex-layout vertical>
-                                <pl-combobox label="Схема" value="{{fnc.schema}}" variant="horizontal" placeholder="Выберите из списка" text-property="code" data="[[schemas]]" value-property="code" required stretch></pl-combobox>
-                                <pl-input label="Наименование" value="{{fnc.name}}" variant="horizontal" placeholder="Английские строчные буквы, цифры, знак подчеркивания" pattern="[a-z0-9_]" required stretch></pl-input>
-                                <pl-input label="Комментарий" value="{{fnc.description}}" variant="horizontal" stretch></pl-input>
+                                <pl-combobox label="Схема" value="{{fnc.schema}}" orientation="horizontal" placeholder="Выберите из списка" text-property="code" data="[[schemas]]" value-property="code" required stretch></pl-combobox>
+                                <pl-input label="Наименование" value="{{fnc.name}}" orientation="horizontal" placeholder="Английские строчные буквы, цифры, знак подчеркивания" pattern="[a-z0-9_]" required stretch></pl-input>
+                                <pl-input label="Комментарий" value="{{fnc.description}}" orientation="horizontal" stretch></pl-input>
                             </pl-flex-layout>
                             <pl-flex-layout vertical>
-                                <pl-combobox label="Язык" value="{{fnc.lang}}" variant="horizontal" placeholder="Выберите из списка" value-property="code" text-property="code" data="[[langs]]" required></pl-combobox>
+                                <pl-combobox label="Язык" value="{{fnc.lang}}" orientation="horizontal" placeholder="Выберите из списка" value-property="code" text-property="code" data="[[langs]]" required></pl-combobox>
                                 <pl-flex-layout>
-                                    <pl-combobox label="Вид результата" value="{{fnc.resKind}}" variant="horizontal" placeholder="Выберите из списка" data="[[resultKinds]]" required></pl-combobox>
+                                    <pl-combobox label="Вид результата" value="{{fnc.resKind}}" orientation="horizontal" placeholder="Выберите из списка" data="[[resultKinds]]" text-property="text" value-property="value" required></pl-combobox>
                                     <pl-button label="+ Колонка" variant="ghost" size="medium" hidden="[[!resTypeIf(fnc.resKind,'table')]]" on-click="[[addResTableCol]]"></pl-button>
                                 </pl-flex-layout>
                                 <pl-flex-layout hidden="[[!resTypeIf(fnc.resKind,'combo')]]">
-                                    <pl-combobox label="Тип результата" value="{{fnc.resType}}" variant="horizontal" placeholder="Выберите из списка" value-property="code" text-property="code" data="[[dataTypes]]" allow-custom-value></pl-combobox>
+                                    <pl-combobox label="Тип результата" value="{{fnc.resType}}" orientation="horizontal" placeholder="Выберите из списка" value-property="code" text-property="code" data="[[dataTypes]]" allow-custom-value></pl-combobox>
                                     <span>[</span>
                                     <pl-checkbox checked="{{fnc.resTypeIsArray}}"></pl-checkbox>
                                     <span>]</span>
@@ -106,16 +106,16 @@ export default class DbEditorFunction extends PlForm {
                     <pl-card header="Настройки">
                         <pl-flex-layout>
                             <pl-flex-layout vertical>
-                                <pl-combobox label="Запоминание результатов при использовании функции в запросе" value="{{fnc.volatile}}" variant="horizontal" data="[[optimizationTypes]]"></pl-combobox>
-                                <pl-combobox label="Пометки параллельности для функций" value="{{fnc.parallel}}" variant="horizontal" data="[[parallelTypes]]"></pl-combobox>
-                                <pl-input label="Ожидаемая стоимость выполнения" value="{{fnc.cost}}" type="number" variant="horizontal"></pl-input>
-                                <pl-input label="Ожидаемое количество возвращаемых строк" value="{{fnc.rows}}" type="number" variant="horizontal"></pl-input>
+                                <pl-combobox label="Запоминание результатов при использовании функции в запросе" value="{{fnc.volatile}}" orientation="horizontal" data="[[optimizationTypes]]" text-property="text" value-property="value"></pl-combobox>
+                                <pl-combobox label="Пометки параллельности для функций" value="{{fnc.parallel}}" orientation="horizontal" data="[[parallelTypes]]" text-property="text" value-property="value"></pl-combobox>
+                                <pl-input label="Ожидаемая стоимость выполнения" value="{{fnc.cost}}" type="number" orientation="horizontal"></pl-input>
+                                <pl-input label="Ожидаемое количество возвращаемых строк" value="{{fnc.rows}}" type="number" orientation="horizontal"></pl-input>
                             </pl-flex-layout>
                             <pl-flex-layout vertical>
-                                <pl-checkbox label="Вернуть null при любом входном параметре null" checked="{{fnc.strict}}" variant="horizontal" ></pl-checkbox>
-                                <pl-checkbox label="Выполнять от имени создателя" checked="{{fnc.secdef}}" variant="horizontal"></pl-checkbox>
-                                <pl-checkbox label="Оконная функция" checked="{{fnc.window}}" hidden="true" variant="horizontal"></pl-checkbox>
-                                <pl-checkbox label="Функция защищенная от утечки памяти" checked="{{fnc.leakproof}}" variant="horizontal"></pl-checkbox>
+                                <pl-checkbox label="Вернуть null при любом входном параметре null" checked="{{fnc.strict}}" orientation="horizontal" ></pl-checkbox>
+                                <pl-checkbox label="Выполнять от имени создателя" checked="{{fnc.secdef}}" orientation="horizontal"></pl-checkbox>
+                                <pl-checkbox label="Оконная функция" checked="{{fnc.window}}" hidden="true" orientation="horizontal"></pl-checkbox>
+                                <pl-checkbox label="Функция защищенная от утечки памяти" checked="{{fnc.leakproof}}" orientation="horizontal"></pl-checkbox>
                             </pl-flex-layout>
                         </pl-flex-layout>
                     </pl-card>
@@ -129,7 +129,7 @@ export default class DbEditorFunction extends PlForm {
                                         <span>[</span>
                                         <pl-checkbox checked="{{item.typeIsArray}}"></pl-checkbox>
                                         <span>]</span>
-                                        <pl-combobox value="{{item.mode}}" data="[[paramModes]]" placeholder="Режим" required></pl-combobox>
+                                        <pl-combobox value="{{item.mode}}" data="[[paramModes]]" placeholder="Режим" required text-property="text" value-property="value"></pl-combobox>
                                         <pl-input value="{{item.default}}" placeholder="Значение по-умолчанию"></pl-input>
                                         <pl-icon-button iconset="pl-default" icon="close-s" on-click="[[delArg]]"></pl-icon-button>
                                     </pl-flex-layout>
