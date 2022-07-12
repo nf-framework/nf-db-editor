@@ -87,18 +87,16 @@ export default class DbEditorFunction extends PlForm {
                                     <span>]</span>
                                 <pl-flex-layout>
                                 <pl-flex-layout hidden="[[!resTypeIf(fnc.resKind,'table')]]" vertical>
-                                    <pl-repeat items="{{fnc.resTypeTable}}" as="col">
-                                        <template>
-                                            <pl-flex-layout>
-                                                <pl-input placeholder="имя" value="{{col.name}}"></pl-input>
-                                                <pl-combobox placeholder="тип данных" value="{{col.type}}" data="[[dataTypes]]" value-property="code" text-property="code" allow-custom-value></pl-combobox>
-                                                <span>[</span>
-                                                <pl-checkbox checked="{{col.typeIsArray}}"></pl-checkbox>
-                                                <span>]</span>
-                                                <pl-icon-button iconset="pl-default" on-click="[[delResTypeTable]]" icon="close-s"></pl-icon-button>
-                                            </pl-flex-layout>
-                                        </template>
-                                    </pl-repeat>
+                                    <template d:repeat="{{fnc.resTypeTable}}" d:as="col">
+                                        <pl-flex-layout>
+                                            <pl-input placeholder="имя" value="{{col.name}}"></pl-input>
+                                            <pl-combobox placeholder="тип данных" value="{{col.type}}" data="[[dataTypes]]" value-property="code" text-property="code" allow-custom-value></pl-combobox>
+                                            <span>[</span>
+                                            <pl-checkbox checked="{{col.typeIsArray}}"></pl-checkbox>
+                                            <span>]</span>
+                                            <pl-icon-button iconset="pl-default" on-click="[[delResTypeTable]]" icon="close-s"></pl-icon-button>
+                                        </pl-flex-layout>
+                                    </template>
                                 </pl-flex-layout>
                             </pl-flex-layout>
                         </pl-flex-layout>        
@@ -121,20 +119,18 @@ export default class DbEditorFunction extends PlForm {
                     </pl-card>
                     <pl-card header="Аргументы">
                         <pl-flex-layout vertical>
-                            <pl-repeat items="{{fnc.args}}" as="item">
-                                <template>
-                                    <pl-flex-layout align-items="start">
-                                        <pl-input value="{{item.name}}" placeholder="Имя" required></pl-input>
-                                        <pl-combobox value="{{item.type}}" value-property="code" text-property="code" data="[[dataTypes]]" placeholder="Тип" required allow-custom-value></pl-combobox>
-                                        <span>[</span>
-                                        <pl-checkbox checked="{{item.typeIsArray}}"></pl-checkbox>
-                                        <span>]</span>
-                                        <pl-combobox value="{{item.mode}}" data="[[paramModes]]" placeholder="Режим" required text-property="text" value-property="value"></pl-combobox>
-                                        <pl-input value="{{item.default}}" placeholder="Значение по-умолчанию"></pl-input>
-                                        <pl-icon-button iconset="pl-default" icon="close-s" on-click="[[delArg]]"></pl-icon-button>
-                                    </pl-flex-layout>
-                                </template>
-                            </pl-repeat>
+                            <template d:repeat="{{fnc.args}}" d:as="item">
+                                <pl-flex-layout align-items="start">
+                                    <pl-input value="{{item.name}}" placeholder="Имя" required></pl-input>
+                                    <pl-combobox value="{{item.type}}" value-property="code" text-property="code" data="[[dataTypes]]" placeholder="Тип" required allow-custom-value></pl-combobox>
+                                    <span>[</span>
+                                    <pl-checkbox checked="{{item.typeIsArray}}"></pl-checkbox>
+                                    <span>]</span>
+                                    <pl-combobox value="{{item.mode}}" data="[[paramModes]]" placeholder="Режим" required text-property="text" value-property="value"></pl-combobox>
+                                    <pl-input value="{{item.default}}" placeholder="Значение по-умолчанию"></pl-input>
+                                    <pl-icon-button iconset="pl-default" icon="close-s" on-click="[[delArg]]"></pl-icon-button>
+                                </pl-flex-layout>
+                            </template>
                         </pl-flex-layout>
                         <pl-icon-button iconset="pl-default" slot="header-suffix" icon="plus-s" variant="ghost" on-click="[[addArg]]"></pl-icon-button>
                     </pl-card>  
@@ -184,7 +180,7 @@ export default class DbEditorFunction extends PlForm {
                 })
             } else {
                 fnc.$action = 'upd';
-                this.fnc = fnc;
+                this.set('fnc', fnc);
                 this.observerWork();
                 _fnc = cloneDeep(this.fnc);
             }
