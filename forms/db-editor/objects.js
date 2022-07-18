@@ -64,7 +64,7 @@ export default class DbEditorObjects extends PlForm {
                                     </pl-grid>
                                 </pl-flex-layout>
                                 <pl-flex-layout fit>
-                                    <pl-grid data="[[objects]]" selected="{{activeObj}}">
+                                    <pl-grid data="[[objects]]" selected="{{activeObj}}" on-row-dblclick="[[onObjUpd]]">
                                         <pl-flex-layout slot="top-toolbar">
                                             <pl-icon-button iconset="pl-default" icon="database" variant="ghost" on-click="[[setSelectedObjTypeAll]]"></pl-icon-button>
                                             <pl-icon-button iconset="pl-default" icon="table" variant="ghost" on-click="[[setSelectedObjTypeTable]]"></pl-icon-button>
