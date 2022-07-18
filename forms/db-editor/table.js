@@ -213,7 +213,7 @@ export default class DbEditorTable extends PlForm {
                         </pl-flex-layout>
                         <pl-icon-button iconset="pl-default" icon="plus-s"  on-click="[[addConstraint]]" slot="header-suffix" variant="ghost"></pl-icon-button>
                     </pl-card>
-                    <pl-card header="Индексы" fit>
+                    <pl-card header="Индексы" style="width: 100%;">
                         <pl-flex-layout vertical fit>
                             <pl-flex-layout fit>
                                 <div class="label w32px"></div>
