@@ -127,11 +127,11 @@ export default class DbEditorTable extends PlForm {
                 <pl-flex-layout fit vertical scrollable>
                     <pl-card header="Основное">
                         <pl-flex-layout vertical>
-                            <pl-combobox label="Схема" value="{{tabl.schema}}" variant="horizontal" data="[[schemas]]" text-property="code" value-property="code" required></pl-combobox>
-                            <pl-input label="Наименование" value="{{tabl.tablename}}" variant="horizontal" pattern="[[config.tableIdentifierPattern]]" required>
+                            <pl-combobox label="Схема" value="{{tabl.schema}}" orientation="horizontal" data="[[schemas]]" text-property="code" value-property="code" required></pl-combobox>
+                            <pl-input label="Наименование" value="{{tabl.tablename}}" orientation="horizontal" pattern="[[config.tableIdentifierPattern]]" required>
                                 <pl-validator-restricted-values data="[[restrictedIdents]]"></pl-validator-restricted-values>
                             </pl-input>
-                            <pl-input label="Описание" value="{{tabl.comment}}" variant="horizontal"></pl-input>
+                            <pl-input label="Описание" value="{{tabl.comment}}" orientation="horizontal"></pl-input>
                         </pl-flex-layout>
                     </pl-card>
                     <pl-card header="Колонки" fit>
@@ -170,7 +170,7 @@ export default class DbEditorTable extends PlForm {
                             <pl-grid-column header="Обяз." width="50">
                                 <template>
                                     <pl-flex-layout justify="center" stretch>
-                                        <pl-checkbox variant="horizontal" checked="{{row.required}}"></pl-checkbox>
+                                        <pl-checkbox orientation="horizontal" checked="{{row.required}}"></pl-checkbox>
                                     </pl-flex-layout>
                                 </template>
                             </pl-grid-column>
@@ -202,16 +202,14 @@ export default class DbEditorTable extends PlForm {
                     </pl-card>
                     <pl-card header="Ограничения" fit>
                         <pl-flex-layout vertical>
-                            <pl-repeat items="{{tabl.cons}}" as="cons">
-                                <template>
-                                    <pl-flex-layout align="center">
-                                        <pl-icon-button iconset="pl-default" icon="pencil" on-click="[[updConstraint]]" variant="ghost"></pl-icon-button>
-                                        <pl-icon-button iconset="pl-default" icon="copy" on-click="[[copyConstraint]]" variant="ghost"></pl-icon-button>
-                                        <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delConstraint]]" variant="ghost"></pl-icon-button>
-                                        <span>[[consLabel(cons)]]</span>
-                                    </pl-flex-layout>
-                                </template>
-                            </pl-repeat>
+                            <template d:repeat="{{tabl.cons}}" d:as="cons">
+                                <pl-flex-layout align="center">
+                                    <pl-icon-button iconset="pl-default" icon="pencil" on-click="[[updConstraint]]" variant="ghost"></pl-icon-button>
+                                    <pl-icon-button iconset="pl-default" icon="copy" on-click="[[copyConstraint]]" variant="ghost"></pl-icon-button>
+                                    <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delConstraint]]" variant="ghost"></pl-icon-button>
+                                    <span>[[consLabel(cons)]]</span>
+                                </pl-flex-layout>
+                            </template>
                         </pl-flex-layout>
                         <pl-icon-button iconset="pl-default" icon="plus-s"  on-click="[[addConstraint]]" slot="header-suffix" variant="ghost"></pl-icon-button>
                     </pl-card>
@@ -224,27 +222,23 @@ export default class DbEditorTable extends PlForm {
                                 <div class="label w1">Колонки</div>
                                 <div class="label w1">Условие</div>
                             </pl-flex-layout>
-                            <pl-repeat items="{{tabl.indx}}" as="indx">
-                                <template>
-                                    <pl-flex-layout stretch>
-                                        <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delIndex]]" class="w32px" variant="ghost"></pl-icon-button>
-                                        <pl-input value="{{indx.name}}" pattern="[[config.indexIdentifierPattern]]" required stretch class="w1"></pl-input>
-                                        <pl-checkbox variant="horizontal" checked="{{indx.is_unique}}" class="w32px"></pl-checkbox>
-                                        <pl-flex-layout vertical class="w1">
-                                            <pl-repeat items="{{indx.columns}}" as="indxCol">
-                                                <template>
-                                                    <pl-flex-layout>
-                                                        <pl-combobox value="{{indxCol.name}}" data="[[tabl.cols]]" text-property="name" value-property="name" allow-custom-value stretch></pl-combobox>
-                                                        <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delIndexColumn]]" variant="ghost"></pl-icon-button>
-                                                    </pl-flex-layout>
-                                                </template>
-                                            </pl-repeat>
-                                            <pl-button label="+ Column" on-click="[[addIndexColumn]]" variant="ghost"></pl-button>
-                                        </pl-flex-layout>
-                                        <pl-input value="{{indx.where_expr}}" stretch class="w1"></pl-input>
+                            <template d:repeat="{{tabl.indx}}" d:as="indx">
+                                <pl-flex-layout stretch>
+                                    <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delIndex]]" class="w32px" variant="ghost"></pl-icon-button>
+                                    <pl-input value="{{indx.name}}" pattern="[[config.indexIdentifierPattern]]" required stretch class="w1"></pl-input>
+                                    <pl-checkbox orientation="horizontal" checked="{{indx.is_unique}}" class="w32px"></pl-checkbox>
+                                    <pl-flex-layout vertical class="w1">
+                                        <template d:repeat="{{indx.columns}}" d:as="indxCol">
+                                            <pl-flex-layout>
+                                                <pl-combobox value="{{indxCol.name}}" data="[[tabl.cols]]" text-property="name" value-property="name" allow-custom-value stretch></pl-combobox>
+                                                <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delIndexColumn]]" variant="ghost"></pl-icon-button>
+                                            </pl-flex-layout>
+                                        </template>
+                                        <pl-button label="+ Column" on-click="[[addIndexColumn]]" variant="ghost"></pl-button>
                                     </pl-flex-layout>
-                                </template>
-                            </pl-repeat>
+                                    <pl-input value="{{indx.where_expr}}" stretch class="w1"></pl-input>
+                                </pl-flex-layout>
+                            </template>
                         </pl-flex-layout>
                         <pl-icon-button iconset="pl-default" icon="plus-s" on-click="[[addIndex]]" slot="header-suffix" variant="ghost"></pl-icon-button>
                     </pl-card>
@@ -254,21 +248,21 @@ export default class DbEditorTable extends PlForm {
             <pl-dropdown id="ddCons">
                 <pl-flex-layout vertical stretch>
                     <pl-flex-layout vertical>
-                        <pl-input label="Наименование" value="{{curCons.name}}" pattern="[[config.constraintIdentifierPattern]]" variant="horizontal"></pl-input>
-                        <pl-combobox label="Тип" value="{{curCons.type}}" data="[[consTypes]]" variant="horizontal"></pl-combobox>
-                        <pl-input label="Описание" value="{{curCons.comment}}" variant="horizontal"></pl-input>
+                        <pl-input label="Наименование" value="{{curCons.name}}" pattern="[[config.constraintIdentifierPattern]]" orientation="horizontal"></pl-input>
+                        <pl-combobox label="Тип" value="{{curCons.type}}" data="[[consTypes]]" orientation="horizontal"></pl-combobox>
+                        <pl-input label="Описание" value="{{curCons.comment}}" orientation="horizontal"></pl-input>
                     </pl-flex-layout>
                     <pl-flex-layout hidden="[[!consUseDefer(curCons.type)]]">
-                        <pl-combobox label="Отложенная проверка консистентности" value="{{curCons.deferrable}}" data="[[consDefferables]]" variant="horizontal"></pl-combobox>
+                        <pl-combobox label="Отложенная проверка консистентности" value="{{curCons.deferrable}}" data="[[consDefferables]]" orientation="horizontal"></pl-combobox>
                     </pl-flex-layout>
                     <pl-flex-layout hidden="[[!consIsPrimary(curCons.type)]]">
-                        <pl-combobox label="Колонка" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" variant="horizontal"></pl-combobox>
+                        <pl-combobox label="Колонка" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" orientation="horizontal"></pl-combobox>
                     </pl-flex-layout>
                     <pl-flex-layout hidden="[[!consIsUnique(curCons.type)]]">
-                        <pl-combobox label="Колонки" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" variant="horizontal"></pl-combobox>
+                        <pl-combobox label="Колонки" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" orientation="horizontal"></pl-combobox>
                     </pl-flex-layout>
                     <pl-flex-layout hidden="[[!consIsForeign(curCons.type)]]" vertical>
-                        <pl-combobox label="Колонка" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" variant="horizontal"></pl-combobox>
+                        <pl-combobox label="Колонка" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" orientation="horizontal"></pl-combobox>
                         <pl-flex-layout>
                             <pl-input value="{{curCons.r_schema}}" label="Схема таблицы"></pl-input>
                             <pl-input value="{{curCons.r_tablename}}" label="Имя таблицы"></pl-input>
@@ -283,23 +277,21 @@ export default class DbEditorTable extends PlForm {
                         <pl-codeeditor value="{{curCons.condition}}" class="consCode" mode="ace/mode/sql"></pl-codeeditor>
                     </pl-flex-layout>
                     <pl-flex-layout hidden="[[!consIsExclude(curCons.type)]]" vertical>
-                        <pl-combobox value="{{curCons.ix_method}}" label="Метод индекса" value-property="code" text-property="code" data="[[indexMethods]]" variant="horizontal" required></pl-combobox>
+                        <pl-combobox value="{{curCons.ix_method}}" label="Метод индекса" value-property="code" text-property="code" data="[[indexMethods]]" orientation="horizontal" required></pl-combobox>
                             <pl-flex-layout fit>
                                 <div class="w32px"></div>
                                 <div class="w1">Колонка</div>
                                 <div class="w1">Оператор</div>
                             </pl-flex-layout>
-                            <pl-repeat as="ix_col" index-as="index" items="{{curCons.ix_columns}}">
-                                <template>
-                                    <pl-flex-layout fit>
-                                        <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delConsColumn]]" class="w32px"></pl-icon-button>
-                                        <pl-combobox value="{{ix_col.name}}" data="[[tabl.cols]]" value-property="name" text-property="name" class="w1" ></pl-combobox>
-                                        <pl-combobox value="{{ix_col.op}}" data="[[operators]]" value-property="code" text-property="code" class="w1"></pl-combobox>
-                                    </pl-flex-layout>
-                                </template>
-                            </pl-repeat>
+                            <template d:repeat="{{curCons.ix_columns}}" d:as="ix_col">
+                                <pl-flex-layout fit>
+                                    <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delConsColumn]]" class="w32px"></pl-icon-button>
+                                    <pl-combobox value="{{ix_col.name}}" data="[[tabl.cols]]" value-property="name" text-property="name" class="w1" ></pl-combobox>
+                                    <pl-combobox value="{{ix_col.op}}" data="[[operators]]" value-property="code" text-property="code" class="w1"></pl-combobox>
+                                </pl-flex-layout>
+                            </template>
                             <pl-button label="+ Колонка" on-click="[[addConsColumn]]" size="small"></pl-button>
-                            <pl-input value="{{curCons.ix_where_expr}}" label="Условие для частичного ограничения" variant="horizontal"></pl-input>
+                            <pl-input value="{{curCons.ix_where_expr}}" label="Условие для частичного ограничения" orientation="horizontal"></pl-input>
                     </pl-flex-layout>                    
                 </pl-flex-layout>
             </pl-dropdown>

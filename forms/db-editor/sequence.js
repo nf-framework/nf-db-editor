@@ -20,14 +20,14 @@ export default class DbEditorSequence extends PlForm {
                     <pl-button label="Просмотр" on-click="[[showCode]]"></pl-button>
                 </pl-flex-layout>
                 <pl-flex-layout vertical>
-                    <pl-combobox label="Схема" value="{{seq.schema}}" variant="horizontal" data="[[schemas]]" value-property="code" text-property="code" required></pl-combobox>
-                    <pl-input label="Наименование" value="{{seq.name}}" variant="horizontal" required></pl-input>
-                    <pl-input label="Минимальное значение" value="{{seq.minvalue}}" variant="horizontal" type="number" required></pl-input>
-                    <pl-input label="Максимальное значение" value="{{seq.maxvalue}}" variant="horizontal" type="number"></pl-input>
-                    <pl-input label="Стартовое значение" value="{{seq.start}}" variant="horizontal" type="number" required></pl-input>
-                    <pl-input label="Инкремент" value="{{seq.increment}}" variant="horizontal" type="number" required></pl-input>
-                    <pl-input label="Сколько кешируется" value="{{seq.cache}}" variant="horizontal" type="number" required></pl-input>
-                    <pl-checkbox label="Зацикливается?" checked="{{seq.cycle}}" variant="horizontal" required></pl-checkbox>
+                    <pl-combobox label="Схема" value="{{seq.schema}}" orientation="horizontal" data="[[schemas]]" value-property="code" text-property="code" required></pl-combobox>
+                    <pl-input label="Наименование" value="{{seq.name}}" orientation="horizontal" required></pl-input>
+                    <pl-input label="Минимальное значение" value="{{seq.minvalue}}" orientation="horizontal" type="number" required></pl-input>
+                    <pl-input label="Максимальное значение" value="{{seq.maxvalue}}" orientation="horizontal" type="number"></pl-input>
+                    <pl-input label="Стартовое значение" value="{{seq.start}}" orientation="horizontal" type="number" required></pl-input>
+                    <pl-input label="Инкремент" value="{{seq.increment}}" orientation="horizontal" type="number" required></pl-input>
+                    <pl-input label="Сколько кешируется" value="{{seq.cache}}" orientation="horizontal" type="number" required></pl-input>
+                    <pl-checkbox label="Зацикливается?" checked="{{seq.cycle}}" orientation="horizontal" required></pl-checkbox>
                     <pl-valid-observer invalid="{{invalid}}"></pl-valid-observer>
                 </pl-flex-layout>
             </pl-card>

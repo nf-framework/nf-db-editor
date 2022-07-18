@@ -42,22 +42,22 @@ export default class DbEditorTriger extends PlForm {
                 <pl-flex-layout vertical>
                     <pl-flex-layout>
                         <pl-flex-layout vertical>
-                            <pl-input label="Наименование" value="{{trig.name}}" variant="horizontal" required>
+                            <pl-input label="Наименование" value="{{trig.name}}" orientation="horizontal" required>
                                 <pl-icon slot="suffix" iconset="pl-default" icon="reload" on-click="[[genName]]"></pl-icon>
                             </pl-input>
-                            <pl-combobox label="Схема таблицы" value="{{trig.schema}}" variant="horizontal" required value-property="code" text-property="code" data="[[schemas]]"></pl-combobox>
-                            <pl-combobox label="Наименование таблицы" value="{{trig.tablename}}" variant="horizontal" required data="[[tabl]]" value-property="code" text-property="code"></pl-combobox>
-                            <pl-input label="Описание" value="{{trig.description}}" variant="horizontal"></pl-input>
-                            <pl-radio-group label="Момент срабатывания" selected="{{trig.act_timing}}" variant="horizontal" required>
+                            <pl-combobox label="Схема таблицы" value="{{trig.schema}}" orientation="horizontal" required value-property="code" text-property="code" data="[[schemas]]"></pl-combobox>
+                            <pl-combobox label="Наименование таблицы" value="{{trig.tablename}}" orientation="horizontal" required data="[[tabl]]" value-property="code" text-property="code"></pl-combobox>
+                            <pl-input label="Описание" value="{{trig.description}}" orientation="horizontal"></pl-input>
+                            <pl-radio-group label="Момент срабатывания" selected="{{trig.act_timing}}" orientation="horizontal" required>
                                 <pl-radio-button name="before" label="До"></pl-radio-button>
                                 <pl-radio-button name="after" label="После"></pl-radio-button>
                                 <pl-radio-button name="instead of" label="Вместо"></pl-radio-button>
                             </pl-radio-group>
-                            <pl-radio-group label="Объем срабатывания" selected="{{trig.act_scope}}" variant="horizontal" required>
+                            <pl-radio-group label="Объем срабатывания" selected="{{trig.act_scope}}" orientation="horizontal" required>
                                 <pl-radio-button name="row" label="Построчно"></pl-radio-button>
                                 <pl-radio-button name="statement" label="Оператор"></pl-radio-button>
                             </pl-radio-group>
-                            <pl-combobox label="Триггер - ограничение" value="{{trig.constr}}" data="[[constr]]" variant="horizontal" value-property="id" text-property="caption" required></pl-combobox>
+                            <pl-combobox label="Триггер - ограничение" value="{{trig.constr}}" data="[[constr]]" orientation="horizontal" value-property="id" text-property="caption" required></pl-combobox>
                         </pl-flex-layout>
                         <pl-card header="События" border>
                             <pl-checkbox caption="Добавление" checked="{{trig.on_insert}}"></pl-checkbox>
@@ -68,8 +68,8 @@ export default class DbEditorTriger extends PlForm {
                     </pl-flex-layout>
                     <pl-card header="Выполняемая функция" border>
                         <pl-flex-layout vertical>
-                            <pl-combobox label="Схема" value="{{trig.function_schema}}" variant="horizontal" required value-property="code" text-property="code" data="[[schemas]]"></pl-combobox>
-                            <pl-combobox label="Наименование" value="{{trig.function_name}}" variant="horizontal" required data="[[fnc]]" value-property="code" text-property="code"></pl-combobox>
+                            <pl-combobox label="Схема" value="{{trig.function_schema}}" orientation="horizontal" required value-property="code" text-property="code" data="[[schemas]]"></pl-combobox>
+                            <pl-combobox label="Наименование" value="{{trig.function_name}}" orientation="horizontal" required data="[[fnc]]" value-property="code" text-property="code"></pl-combobox>
                         </pl-flex-layout>
                         <pl-checkbox caption="Ограничить по имени таблицы" checked="{{fncNameByTable}}" slot="header-suffix"></pl-checkbox>
                     </pl-card>

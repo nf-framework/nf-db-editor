@@ -23,9 +23,9 @@ export default class DbEditorView extends PlForm {
                     <pl-button label="Сгенерировать по таблице" on-click="[[showGen]]"></pl-button>
                 </pl-flex-layout>
                 <pl-flex-layout vertical fit>
-                    <pl-combobox label="Схема" value="{{view.schema}}" variant="horizontal" data="[[schemas]]" value-property="code" text-property="code" required></pl-combobox>
-                    <pl-input label="Наименование" value="{{view.name}}" variant="horizontal" required></pl-input>
-                    <pl-input label="Описание" value="{{view.description}}" variant="horizontal"></pl-input>
+                    <pl-combobox label="Схема" value="{{view.schema}}" orientation="horizontal" data="[[schemas]]" value-property="code" text-property="code" required></pl-combobox>
+                    <pl-input label="Наименование" value="{{view.name}}" orientation="horizontal" required></pl-input>
+                    <pl-input label="Описание" value="{{view.description}}" orientation="horizontal"></pl-input>
                     <pl-codeeditor value="{{view.body}}" mode="ace/mode/sql"></pl-codeeditor>
                     <pl-valid-observer invalid="{{invalid}}"></pl-valid-observer>
                 </pl-flex-layout>    
