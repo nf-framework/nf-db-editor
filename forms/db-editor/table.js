@@ -219,6 +219,7 @@ export default class DbEditorTable extends PlForm {
                                 <div class="label w32px"></div>
                                 <div class="label w1">Имя</div>
                                 <div class="label w32px">Уник.</div>
+                                <div class="label w32px"></div>
                                 <div class="label w1">Колонки</div>
                                 <div class="label w1">Условие</div>
                             </pl-flex-layout>
@@ -227,6 +228,7 @@ export default class DbEditorTable extends PlForm {
                                     <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delIndex]]" class="w32px" variant="ghost"></pl-icon-button>
                                     <pl-input value="{{indx.name}}" pattern="[[config.indexIdentifierPattern]]" required stretch class="w1"></pl-input>
                                     <pl-checkbox orientation="horizontal" checked="{{indx.is_unique}}" class="w32px"></pl-checkbox>
+                                    <pl-icon-button iconset="pl-default" icon="plus" on-click="[[addIndexColumn]]" class="w32px" variant="ghost"></pl-icon-button>
                                     <pl-flex-layout vertical class="w1">
                                         <template d:repeat="{{indx.columns}}" d:as="indxCol">
                                             <pl-flex-layout>
@@ -234,7 +236,6 @@ export default class DbEditorTable extends PlForm {
                                                 <pl-icon-button iconset="pl-default" icon="trashcan" on-click="[[delIndexColumn]]" variant="ghost"></pl-icon-button>
                                             </pl-flex-layout>
                                         </template>
-                                        <pl-button label="+ Column" on-click="[[addIndexColumn]]" variant="ghost"></pl-button>
                                     </pl-flex-layout>
                                     <pl-input value="{{indx.where_expr}}" stretch class="w1"></pl-input>
                                 </pl-flex-layout>
