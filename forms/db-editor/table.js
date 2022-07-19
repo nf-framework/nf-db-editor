@@ -753,7 +753,7 @@ export default class DbEditorTable extends PlForm {
 
     addIndexColumn(event) {
         const indxIdx = this.tabl.indx.findIndex(i => i === event.model.indx);
-        this.push(`tabl.indx.${indxIdx}.columns`, { name: 'newColumn' });
+        this.push(`tabl.indx.${indxIdx}.columns`, { name: '' });
     }
     delIndexColumn(event) {
         const indxIdx = this.tabl.indx.findIndex(i => i === event.model.indx);
@@ -762,7 +762,7 @@ export default class DbEditorTable extends PlForm {
     }
 
     addIndex(){
-        this.push('tabl.indx', { name: this.getObjName('i'), columns:[]});
+        this.push('tabl.indx', { name: this.getObjName('i'), columns:[{ name: '' }]});
     }
     delIndex(event) {
         const indxIdx = this.tabl.indx.findIndex(i => i === event.model.indx);
