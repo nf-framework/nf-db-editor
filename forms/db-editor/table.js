@@ -6,6 +6,10 @@ export default class DbEditorTable extends PlForm {
     static get properties() {
         return {
             formTitle: { type: String, value: 'Таблица' },
+            urlParams: {
+                type: Array,
+                value: ['obj_name','obj_schema','action']
+            },
             tabl: {
                 type: Object,
                 value: () => ({
