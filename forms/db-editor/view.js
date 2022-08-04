@@ -16,8 +16,8 @@ export default class DbEditorView extends PlForm {
 
     static get template() {
         return html`
-            <pl-card fit>
-                <pl-flex-layout slot="header-prefix">
+            <pl-flex-layout vertical fit>
+                <pl-flex-layout>
                     <pl-button label="Выполнить" variant="primary" disabled="[[disableExec(hasChanges,invalid)]]" on-click="[[exec]]"></pl-button>
                     <pl-button label="Просмотр" on-click="[[showCode]]"></pl-button>
                     <pl-button label="Сгенерировать по таблице" on-click="[[showGen]]"></pl-button>
@@ -29,7 +29,7 @@ export default class DbEditorView extends PlForm {
                     <pl-codeeditor value="{{view.body}}" mode="ace/mode/sql"></pl-codeeditor>
                     <pl-valid-observer invalid="{{invalid}}"></pl-valid-observer>
                 </pl-flex-layout>    
-            </pl-card>
+            </pl-flex-layout>
             <pl-dropdown id="ddGen">
                 <pl-flex-layout vertical>
                     <pl-combobox label="Схема" value="{{gen.schema}}" data="[[schemas]]" value-property="code" text-property="code" required></pl-combobox>

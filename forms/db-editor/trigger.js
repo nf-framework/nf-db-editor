@@ -34,8 +34,8 @@ export default class DbEditorTriger extends PlForm {
 
     static get template() {
         return html`
-            <pl-card fit>
-                <pl-flex-layout slot="header-prefix">
+            <pl-flex-layout vertical fit>
+                <pl-flex-layout>
                     <pl-button label="Выполнить" variant="primary" dgisabled="[[disableExec(hasChanges,invalid)]]" on-click="[[exec]]"></pl-button>
                     <pl-button label="Просмотр" on-click="[[showCode]]"></pl-button>
                 </pl-flex-layout>
@@ -75,7 +75,7 @@ export default class DbEditorTriger extends PlForm {
                     </pl-card>
                     <pl-valid-observer invalid="{{invalid}}"></pl-valid-observer>
                 </pl-flex-layout>
-            </pl-card>
+            </pl-flex-layout>
             <pl-data-observer id="doTrig" data="{{trig}}" is-changed="{{hasChanges}}"></pl-data-observer>
             <pl-action id="aGetDefinition" endpoint="/@nfjs/db-editor/dbo-compare/trigger/get"></pl-action>
             <pl-action id="aDiff" endpoint="/@nfjs/db-editor/dbo-compare/trigger/diff"></pl-action>
