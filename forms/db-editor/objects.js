@@ -66,12 +66,26 @@ export default class DbEditorObjects extends PlForm {
                                 <pl-flex-layout fit>
                                     <pl-grid data="[[objects]]" selected="{{activeObj}}" on-row-dblclick="[[onObjUpd]]">
                                         <pl-flex-layout slot="top-toolbar">
-                                            <pl-icon-button iconset="pl-default" icon="database" variant="ghost" on-click="[[setSelectedObjTypeAll]]"></pl-icon-button>
-                                            <pl-icon-button iconset="pl-default" icon="table" variant="ghost" on-click="[[setSelectedObjTypeTable]]"></pl-icon-button>
-                                            <pl-icon-button iconset="pl-default" icon="view" variant="ghost" on-click="[[setSelectedObjTypeView]]"></pl-icon-button>
-                                            <pl-icon-button iconset="pl-default" icon="function" variant="ghost" on-click="[[setSelectedObjTypeFunction]]"></pl-icon-button>
-                                            <pl-icon-button iconset="pl-default" icon="trigger" variant="ghost" on-click="[[setSelectedObjTypeTrigger]]"></pl-icon-button>
-                                            <pl-icon-button iconset="pl-default" icon="sequence" variant="ghost" on-click="[[setSelectedObjTypeSequence]]"></pl-icon-button>
+                                            <pl-radio-group selected="{{selectedObjType}}">
+                                                <pl-radio-button name="all">
+                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="database" variant="link"></pl-icon-button>
+                                                </pl-radio-button>
+                                                <pl-radio-button name="table">
+                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="table" variant="link"></pl-icon-button>
+                                                </pl-radio-button>
+                                                <pl-radio-button name="view">
+                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="view" variant="link"></pl-icon-button>
+                                                </pl-radio-button>
+                                                <pl-radio-button name="function">
+                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="function" variant="link"></pl-icon-button>
+                                                </pl-radio-button>
+                                                <pl-radio-button name="trigger">
+                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="trigger" variant="link"></pl-icon-button>
+                                                </pl-radio-button>
+                                                <pl-radio-button name="sequence">
+                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="sequence" variant="link"></pl-icon-button>
+                                                </pl-radio-button>
+                                            </pl-radio-group>
                                             <pl-input stretch></pl-input>
                                         </pl-flex-layout>
                                         <pl-grid-column header="Имя объекта" field="obj_name"></pl-grid-column>
@@ -220,24 +234,5 @@ export default class DbEditorObjects extends PlForm {
 
     onMenuMain(event) {
         this.$.ddMenuMain.open(event.target);
-    }
-
-    setSelectedObjTypeAll() {
-        this.selectedObjType = 'all';
-    }
-    setSelectedObjTypeTable() {
-        this.selectedObjType = 'table';
-    }
-    setSelectedObjTypeView() {
-        this.selectedObjType = 'view';
-    }
-    setSelectedObjTypeFunction() {
-        this.selectedObjType = 'function';
-    }
-    setSelectedObjTypeTrigger() {
-        this.selectedObjType = 'trigger';
-    }
-    setSelectedObjTypeSequence() {
-        this.selectedObjType = 'sequence';
     }
 }
