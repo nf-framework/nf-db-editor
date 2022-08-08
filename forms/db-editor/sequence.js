@@ -14,8 +14,8 @@ export default class DbEditorSequence extends PlForm {
 
     static get template() {
         return html`
-            <pl-card fit>
-                <pl-flex-layout slot="header-prefix">
+            <pl-flex-layout fit vertical>
+                <pl-flex-layout>
                     <pl-button label="Выполнить" variant="primary" dgisabled="[[disableExec(hasChanges,invalid)]]" on-click="[[exec]]"></pl-button>
                     <pl-button label="Просмотр" on-click="[[showCode]]"></pl-button>
                 </pl-flex-layout>
@@ -30,7 +30,7 @@ export default class DbEditorSequence extends PlForm {
                     <pl-checkbox label="Зацикливается?" checked="{{seq.cycle}}" orientation="horizontal" required></pl-checkbox>
                     <pl-valid-observer invalid="{{invalid}}"></pl-valid-observer>
                 </pl-flex-layout>
-            </pl-card>
+            </pl-flex-layout>
             <pl-data-observer id="doSeq" data="{{seq}}" is-changed="{{hasChanges}}"></pl-data-observer>
             <pl-action id="aGetDefinition" endpoint="/@nfjs/db-editor/dbo-compare/sequence/get"></pl-action>
             <pl-action id="aDiff" endpoint="/@nfjs/db-editor/dbo-compare/sequence/diff"></pl-action>
