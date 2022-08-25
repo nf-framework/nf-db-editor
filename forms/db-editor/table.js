@@ -62,6 +62,7 @@ export default class DbEditorTable extends PlForm {
                     { value: 'id' },
                     { value: 'code' },
                     { value: 'caption' },
+                    { value: 'name' },
                     { value: 'pid' },
                     { value: 'hid' },
                     { value: 'note' },
@@ -528,6 +529,9 @@ export default class DbEditorTable extends PlForm {
             case 'caption':
                 this.addColumnCaption();
                 break;
+            case 'name':
+                this.addColumnName();
+                break;
             case 'pid':
                 this.addColumnPid();
                 break;
@@ -597,6 +601,27 @@ export default class DbEditorTable extends PlForm {
         };
         this._toggleConstraint(con,true);
     }
+    addColumnName() {
+        const col = {
+            name: "name",
+            datatype: "text",
+            required: true,
+            comment: "Наименование"
+        };
+        this._toggleColumn(col,true);
+        const conUk = {
+            name: this.getObjName('uk',col.name),
+            type: 'u',
+            columns: col.name
+        };
+        this._toggleConstraint(conUk,true);
+        const con = {
+            name: this.getObjName('ch',col.name),
+            type: 'c',
+            condition: `${col.name} = trim(${col.name})`
+        };
+        this._toggleConstraint(con,true);
+    }
     addColumnNote() {
         const col = {
             name: "note",
@@ -613,7 +638,7 @@ export default class DbEditorTable extends PlForm {
             datatype: "int8",
             datatype_length: null,
             required: true,
-            comment: "Id"
+            comment: "Идентификатор"
         };
         const con = {
             name: this.getObjName('pk'),
