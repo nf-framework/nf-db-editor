@@ -205,7 +205,7 @@ export default class DbEditorTable extends PlForm {
                             <pl-combobox value="{{addColSample}}" data="[[addColSamples]]" text-property="value"></pl-combobox>
                         </pl-flex-layout>
                     </pl-card>
-                    <pl-card header="Ограничения" fit>
+                    <pl-card header="Ограничения">
                         <pl-flex-layout vertical>
                             <template d:repeat="{{tabl.cons}}" d:as="cons">
                                 <pl-flex-layout align="center">
