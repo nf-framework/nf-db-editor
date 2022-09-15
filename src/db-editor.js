@@ -114,7 +114,7 @@ function createView(table, refCols) {
         refCols.forEach((refCol) => {
             const col = table.cols.find(column => column.name === refCol.columns);
             if (col) {
-                col.unique_cols = refCol.unique_cols;
+                col.unique_cols = refCol.unique_cols.filter(uc => !!uc);
                 col.alias = `ref_${refCol.columns}`;
                 col.r_schema = refCol.r_schema;
                 col.r_tablename = refCol.r_tablename;
@@ -124,7 +124,7 @@ function createView(table, refCols) {
     }
     let script = `create or replace view ${table.schema}.v4${table.tablename} as select `;
     script += table.cols
-        .map(col => `main.${col.name}${(col.unique_cols) ? `,\r\n${col.unique_cols.map(uc => `${col.alias}.${uc} as ${col.name}_${uc}`).join(',\r\n')}` : ''}`)
+        .map(col => `main.${col.name}${(col.unique_cols && Array.isArray(col.unique_cols) && col.unique_cols.length > 0) ? `,\r\n${col.unique_cols.map(uc => `${col.alias}.${uc} as ${col.name}_${uc}`).join(',\r\n')}` : ''}`)
         .join(',\r\n');
     script += `\r\n  from ${table.schema}.${table.tablename} as main\r\n`;
     script += table.cols
