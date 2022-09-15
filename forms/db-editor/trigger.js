@@ -20,7 +20,12 @@ export default class DbEditorTriger extends PlForm {
             hasChanges: { value: false },
             schemas: { type: Array, value: () => [] },
             tabl: { type: Array, value: () => [] },
-            fnc: { type: Array, value: () => [] }
+            fnc: { type: Array, value: () => [] },
+            obj_name: {},
+            obj_fullname: {},
+            obj_schema: {},
+            action: {},
+            obj: {}
         }
     }
 

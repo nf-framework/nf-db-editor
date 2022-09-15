@@ -47,7 +47,11 @@ export default class DbEditorFunction extends PlForm {
             schemas: { type: Array, value: () => [] },
             dataTypes: { type: Array, value: () => [] },
             langs: { type: Array, value: () => [] },
-            editor: { type: Object, value: () => ({}) }
+            editor: { type: Object, value: () => ({}) },
+            obj_name: {},
+            obj_schema: {},
+            action: {},
+            obj: {}
         }
     }
 

@@ -93,6 +93,10 @@ export default class DbEditorTable extends PlForm {
             indexMethods: { type: Array, value: () => [] },
             operators: { type: Array, value: () => [] },
             restrictedIdents: { type: Array, value: () => [] },
+            obj_name: {},
+            obj_schema: {},
+            action: {},
+            obj: {}
         }
     }
 
@@ -346,7 +350,7 @@ export default class DbEditorTable extends PlForm {
         const { obj_name: name, obj_schema: schema, action = 'add' } = this;
         let _tabl; // изначальная версия таблицы
         if (action !== 'add') {
-            const tabl = await this.$.aGetDefinition.execute({name,schema});
+            const tabl = await this.$.aGetDefinition.execute({ name, schema });
             tabl.cols = tabl.cols || [];
             tabl.indx = tabl.indx || [];
             tabl.cons = tabl.cons || [];

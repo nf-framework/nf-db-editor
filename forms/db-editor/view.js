@@ -10,7 +10,11 @@ export default class DbEditorView extends PlForm {
             invalid: { value: false },
             hasChanges: { value: false },
             schemas: { type: Array, value: () => [] },
-            tabl: { type: Array, value: () => [] }
+            tabl: { type: Array, value: () => [] },
+            obj_name: {},
+            obj_schema: {},
+            action: {},
+            obj: {}
         }
     }
 

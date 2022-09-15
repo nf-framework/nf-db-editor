@@ -8,7 +8,11 @@ export default class DbEditorSequence extends PlForm {
             seq: { type: Object, value: () => ({}) },
             invalid: { value: false },
             hasChanges: { value: false},
-            schemas: { type: Array, value: () => [] }
+            schemas: { type: Array, value: () => [] },
+            obj_name: {},
+            obj_schema: {},
+            action: {},
+            obj: {}
         }
     }
 
