@@ -479,6 +479,7 @@ export default class DbEditorTable extends PlForm {
                 });
             if (indxIndex === -1)
                 this.push('tabl.indx', {
+                    schema: this.tabl.schema,
                     name: indxName,
                     columns: [{name: columnName}]
                 });
@@ -560,7 +561,7 @@ export default class DbEditorTable extends PlForm {
             default:
                 this.push('tabl.cols', Object.assign({}, this.defaultColumn));
         }
-
+        this.set('addColSample', null);
     }
 
     addColumnCode() {
@@ -736,6 +737,7 @@ export default class DbEditorTable extends PlForm {
         const column = event.model.row;
         const name = this.getObjName('i', column.name);
         const ind = {
+            schema: this.tabl.schema,
             name,
             columns: [{name: column.name}]
         };
@@ -795,7 +797,7 @@ export default class DbEditorTable extends PlForm {
     }
 
     addIndex(){
-        this.push('tabl.indx', { name: this.getObjName('i'), columns:[{ name: '' }]});
+        this.push('tabl.indx', { schema: this.tabl.schema, name: this.getObjName('i'), columns:[{ name: '' }]});
     }
     delIndex(event) {
         const indxIdx = this.tabl.indx.findIndex(i => i === event.model.indx);
@@ -881,9 +883,6 @@ export default class DbEditorTable extends PlForm {
         this.$.ddMenuCols.open(event.target, undefined, { model: event.model });
     }
     /*
-
-
-
     editorConsCompleter(editor, session, pos, prefix) {
         const res = this.tabl.cols.map(col => ({
             caption: col.name,
@@ -892,10 +891,6 @@ export default class DbEditorTable extends PlForm {
         }));
         return res;
     }
-
-
-
-
     */
 
 }
