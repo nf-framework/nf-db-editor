@@ -123,6 +123,10 @@ export default class DbEditorTable extends PlForm {
                 height: 300px;
                 width: 300px;
             }
+
+            pl-card {
+                width: 100%;
+            }
         `
     }
 
@@ -143,7 +147,7 @@ export default class DbEditorTable extends PlForm {
                             <pl-input label="Описание" value="{{tabl.comment}}" orientation="horizontal"></pl-input>
                         </pl-flex-layout>
                     </pl-card>
-                    <pl-card header="Колонки" fit>
+                    <pl-card header="Колонки">
                         <pl-grid data="{{tabl.cols}}" class="cols">
                             <pl-grid-column width="100" fixed>
                                 <template>
