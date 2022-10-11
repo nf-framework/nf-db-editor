@@ -138,7 +138,7 @@ export default class DbEditorFunction extends PlForm {
                         </pl-flex-layout>
                         <pl-icon-button iconset="pl-default" slot="header-suffix" icon="plus-s" variant="ghost" on-click="[[addArg]]"></pl-icon-button>
                     </pl-card>  
-                    <pl-card header="Код" fit>
+                    <pl-card header="Код" style="width: 100%;">
                         <pl-codeeditor value="{{fnc.body}}" editor="{{editor}}" class="code" mode="ace/mode/sql"></pl-codeeditor>
                     </pl-card>
                 </pl-flex-layout>    
