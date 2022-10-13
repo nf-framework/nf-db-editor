@@ -273,7 +273,7 @@ export default class DbEditorTable extends PlForm {
                         <pl-combobox label="Колонка" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" orientation="horizontal"></pl-combobox>
                     </pl-flex-layout>
                     <pl-flex-layout hidden="[[!consIsUnique(curCons.type)]]">
-                        <pl-combobox label="Колонки" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" orientation="horizontal"></pl-combobox>
+                        <pl-combobox label="Колонки" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" orientation="horizontal" allow-custom-value></pl-combobox>
                     </pl-flex-layout>
                     <pl-flex-layout hidden="[[!consIsForeign(curCons.type)]]" vertical>
                         <pl-combobox label="Колонка" value="{{curCons.columns}}" data="[[tabl.cols]]" text-property="name" value-property="name" orientation="horizontal"></pl-combobox>
