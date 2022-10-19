@@ -96,7 +96,8 @@ export default class DbEditorTable extends PlForm {
             obj_name: {},
             obj_schema: {},
             action: {},
-            obj: {}
+            obj: {},
+            fit: {}
         }
     }
 
@@ -148,7 +149,7 @@ export default class DbEditorTable extends PlForm {
                         </pl-flex-layout>
                     </pl-card>
                     <pl-card header="Колонки">
-                        <pl-grid data="{{tabl.cols}}" class="cols">
+                        <pl-grid data="{{tabl.cols}}" class="cols" id="grid">
                             <pl-grid-column width="100" fixed>
                                 <template>
                                     <style>
@@ -172,7 +173,12 @@ export default class DbEditorTable extends PlForm {
                             </pl-grid-column>
                             <pl-grid-column header="Тип" width="160">
                                 <template>
-                                    <pl-combobox value="{{row.datatype}}" data="[[datatypes]]" text-property="code" value-property="code" required allow-custom-value stretch></pl-combobox>
+                                    <style>
+                                        pl-combobox {
+                                            --dropdown-max-height: 200px;
+                                        }
+                                    </style>
+                                    <pl-combobox fit-into="[[fit]]" value="{{row.datatype}}" data="[[datatypes]]" text-property="code" value-property="code" required allow-custom-value stretch></pl-combobox>
                                 </template>
                             </pl-grid-column>
                             <pl-grid-column header="Разм." width="80">
@@ -199,12 +205,22 @@ export default class DbEditorTable extends PlForm {
                             </pl-grid-column>
                             <pl-grid-column header="Внешний ключ">
                                 <template>
-                                    <pl-combobox value="{{row.fk_tablename}}" data="[[tables]]" value-property="fullname" text-property="fullname" stretch></pl-combobox>
+                                    <style>
+                                        pl-combobox {
+                                            --dropdown-max-height: 200px;
+                                        }
+                                    </style>
+                                    <pl-combobox fit-into="[[fit]]"  value="{{row.fk_tablename}}" data="[[tables]]" value-property="fullname" text-property="fullname" stretch></pl-combobox>
                                 </template>
                             </pl-grid-column>
                             <pl-grid-column header="Идентификация">
                                 <template>
-                                    <pl-combobox value="{{row.identity}}" data="[[colIdentityType]]" stretch></pl-combobox>
+                                    <style>
+                                        pl-combobox {
+                                            --dropdown-max-height: 200px;
+                                        }
+                                    </style>
+                                    <pl-combobox fit-into="[[fit]]" value="{{row.identity}}" data="[[colIdentityType]]" stretch></pl-combobox>
                                 </template>
                             </pl-grid-column>
                         </pl-grid>
@@ -330,6 +346,7 @@ export default class DbEditorTable extends PlForm {
     }
 
     async onConnect(){
+        this.fit = this.$.grid.$.rowsContainer;
         if (!this.schemas || this.schemas.length === 0) await this.$.dsSchemas.execute();
         this.defaultColumn = {
             name: null,
