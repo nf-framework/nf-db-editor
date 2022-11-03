@@ -48,68 +48,55 @@ export default class DbEditorObjects extends PlForm {
                         </pl-button>
                         <pl-icon-button iconset="pl-default" icon="menu" on-click="[[onMenuMain]]"></pl-icon-button>
                     </pl-flex-layout>
-                    <pl-tabpanel>
-                        <pl-tab header="Объекты">
-                            <pl-flex-layout fit vertical>
-                                <pl-flex-layout class="schemas-grid">
-                                    <pl-grid data="[[objSchemas]]" selected="{{activeObjSchema}}">
-                                        <pl-flex-layout slot="top-toolbar">
-                                            <pl-filter-container data="{{objSchemas}}">
-                                                <pl-filter-item field="code">
-                                                    <pl-input></pl-input>
-                                                </pl-filter-item>
-                                            </pl-filter-container>
-                                        </pl-flex-layout>
-                                        <pl-grid-column field="code" header="Схемы"></pl-grid-column>
-                                    </pl-grid>
+                    <pl-flex-layout fit vertical>
+                        <pl-flex-layout class="schemas-grid">
+                            <pl-grid data="[[objSchemas]]" selected="{{activeObjSchema}}">
+                                <pl-grid-column field="code" header="Схемы"></pl-grid-column>
+                            </pl-grid>
+                        </pl-flex-layout>
+                        <pl-flex-layout fit>
+                            <pl-grid data="[[objects]]" selected="{{activeObj}}" on-row-dblclick="[[onObjUpd]]">
+                                <pl-flex-layout slot="top-toolbar">
+                                    <pl-radio-group selected="{{selectedObjType}}">
+                                        <pl-radio-button name="all">
+                                            <pl-icon-button slot="prefix" iconset="pl-default" icon="database" variant="link"></pl-icon-button>
+                                        </pl-radio-button>
+                                        <pl-radio-button name="table">
+                                            <pl-icon-button slot="prefix" iconset="pl-default" icon="table" variant="link"></pl-icon-button>
+                                        </pl-radio-button>
+                                        <pl-radio-button name="view">
+                                            <pl-icon-button slot="prefix" iconset="pl-default" icon="view" variant="link"></pl-icon-button>
+                                        </pl-radio-button>
+                                        <pl-radio-button name="function">
+                                            <pl-icon-button slot="prefix" iconset="pl-default" icon="function" variant="link"></pl-icon-button>
+                                        </pl-radio-button>
+                                        <pl-radio-button name="trigger">
+                                            <pl-icon-button slot="prefix" iconset="pl-default" icon="trigger" variant="link"></pl-icon-button>
+                                        </pl-radio-button>
+                                        <pl-radio-button name="sequence">
+                                            <pl-icon-button slot="prefix" iconset="pl-default" icon="sequence" variant="link"></pl-icon-button>
+                                        </pl-radio-button>
+                                    </pl-radio-group>
+                                    <pl-input stretch></pl-input>
                                 </pl-flex-layout>
-                                <pl-flex-layout fit>
-                                    <pl-grid data="[[objects]]" selected="{{activeObj}}" on-row-dblclick="[[onObjUpd]]">
-                                        <pl-flex-layout slot="top-toolbar">
-                                            <pl-radio-group selected="{{selectedObjType}}">
-                                                <pl-radio-button name="all">
-                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="database" variant="link"></pl-icon-button>
-                                                </pl-radio-button>
-                                                <pl-radio-button name="table">
-                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="table" variant="link"></pl-icon-button>
-                                                </pl-radio-button>
-                                                <pl-radio-button name="view">
-                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="view" variant="link"></pl-icon-button>
-                                                </pl-radio-button>
-                                                <pl-radio-button name="function">
-                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="function" variant="link"></pl-icon-button>
-                                                </pl-radio-button>
-                                                <pl-radio-button name="trigger">
-                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="trigger" variant="link"></pl-icon-button>
-                                                </pl-radio-button>
-                                                <pl-radio-button name="sequence">
-                                                    <pl-icon-button slot="prefix" iconset="pl-default" icon="sequence" variant="link"></pl-icon-button>
-                                                </pl-radio-button>
-                                            </pl-radio-group>
-                                            <pl-input stretch></pl-input>
+                                <pl-grid-column header="Имя объекта" field="obj_name"></pl-grid-column>
+                                <pl-grid-column action width="100">
+                                    <template>
+                                        <style>
+                                            pl-flex-layout {
+                                                gap: 0px;
+                                            }
+                                        </style>
+                                        <pl-flex-layout>
+                                            <pl-icon-button iconset="pl-default" icon="pencil" on-click="[[onObjUpd]]" size="14" variant="link"></pl-icon-button>
+                                            <pl-icon-button iconset="pl-default" icon="copy" on-click="[[onObjCopy]]" variant="link" size="14"></pl-icon-button>
+                                            <pl-icon-button iconset="pl-default" icon="menu" on-click="[[onObjMenu]]" variant="link" size="14"></pl-icon-button>
                                         </pl-flex-layout>
-                                        <pl-grid-column header="Имя объекта" field="obj_name"></pl-grid-column>
-                                        <pl-grid-column action width="100">
-                                            <template>
-                                                <style>
-                                                    pl-flex-layout {
-                                                        gap: 0px;
-                                                    }
-                                                </style>
-                                                <pl-flex-layout>
-                                                    <pl-icon-button iconset="pl-default" icon="pencil" on-click="[[onObjUpd]]" size="14" variant="link"></pl-icon-button>
-                                                    <pl-icon-button iconset="pl-default" icon="copy" on-click="[[onObjCopy]]" variant="link" size="14"></pl-icon-button>
-                                                    <pl-icon-button iconset="pl-default" icon="menu" on-click="[[onObjMenu]]" variant="link" size="14"></pl-icon-button>
-                                                </pl-flex-layout>
-                                            </template>
-                                        </pl-grid-column>
-                                    </pl-grid>
-                                </pl-flex-layout>
-                            </pl-flex-layout>
-                        </pl-tab>
-                        <pl-tab header="Сущности">
-                        </pl-tab>
-                    </pl-tabpanel>
+                                    </template>
+                                </pl-grid-column>
+                            </pl-grid>
+                        </pl-flex-layout>
+                    </pl-flex-layout>
                 </pl-flex-layout>
                 <pl-flex-layout>
                 </pl-flex-layout>
