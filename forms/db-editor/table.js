@@ -178,7 +178,7 @@ export default class DbEditorTable extends PlForm {
                                             --dropdown-max-height: 200px;
                                         }
                                     </style>
-                                    <pl-combobox fit-into="[[fit]]" value="{{row.datatype}}" data="[[datatypes]]" text-property="code" value-property="code" required allow-custom-value stretch></pl-combobox>
+                                    <pl-combobox value="{{row.datatype}}" data="[[datatypes]]" text-property="code" value-property="code" required allow-custom-value stretch></pl-combobox>
                                 </template>
                             </pl-grid-column>
                             <pl-grid-column header="Разм." width="80">
@@ -210,7 +210,7 @@ export default class DbEditorTable extends PlForm {
                                             --dropdown-max-height: 200px;
                                         }
                                     </style>
-                                    <pl-combobox fit-into="[[fit]]"  value="{{row.fk_tablename}}" data="[[tables]]" value-property="fullname" text-property="fullname" stretch></pl-combobox>
+                                    <pl-combobox  value="{{row.fk_tablename}}" data="[[tables]]" value-property="fullname" text-property="fullname" stretch></pl-combobox>
                                 </template>
                             </pl-grid-column>
                             <pl-grid-column header="Идентификация">
@@ -220,7 +220,7 @@ export default class DbEditorTable extends PlForm {
                                             --dropdown-max-height: 200px;
                                         }
                                     </style>
-                                    <pl-combobox fit-into="[[fit]]" value="{{row.identity}}" data="[[colIdentityType]]" stretch></pl-combobox>
+                                    <pl-combobox value="{{row.identity}}" data="[[colIdentityType]]" stretch></pl-combobox>
                                 </template>
                             </pl-grid-column>
                         </pl-grid>
