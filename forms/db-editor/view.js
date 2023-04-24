@@ -6,7 +6,7 @@ export default class DbEditorView extends PlForm {
         return {
             formTitle: { type: String, value: 'Представление' },
             view: { type: Object, value: () => ({}) },
-            gen: { type: Object, value: () => ({ joinWithoutUniq: false }) },
+            gen: { type: Object, value: () => ({ joinWithoutUniq: false, base: false }) },
             invalid: { value: false },
             hasChanges: { value: false },
             schemas: { type: Array, value: () => [] },
@@ -39,6 +39,7 @@ export default class DbEditorView extends PlForm {
                     <pl-combobox label="Схема" value="{{gen.schema}}" data="[[schemas]]" value-property="code" text-property="code" required></pl-combobox>
                     <pl-combobox label="Таблица" value="{{gen.name}}" data="[[tabl]]" value-property="code" text-property="code" required></pl-combobox>
                     <pl-checkbox label="Соединять таблицы без уникальных ключей" checked="{{gen.joinWithoutUniq}}"></pl-checkbox>
+                    <pl-checkbox label="Базовая (только поля таблицы)" checked="{{gen.base}}"></pl-checkbox>
                     <pl-button label="Выполнить" on-click="[[genByTable]]"></pl-button>
                 </pl-flex-layout>
             </pl-dropdown>
@@ -141,6 +142,7 @@ export default class DbEditorView extends PlForm {
             this.set('view.name', genScript.name);
             this.set('view.body', genScript.body);
         }
+        this.$.ddGen.close();
     }
 }
 

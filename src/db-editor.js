@@ -147,17 +147,19 @@ function createView(table, refCols) {
  * @returns {Promise<ViewDboType>}
  */
 async function genViewByTable(context, args) {
-    const { provider = 'default', schema, name, joinWithoutUniq = false } = args;
+    const { provider = 'default', schema, name, joinWithoutUniq = false, base = false } = args;
     let connect;
     try {
         connect = await dbapi.getConnect(context, { provider });
         const tbl = await DboTable.get(connect._connect, { schema, name });
         if (!tbl) throw new Error(`Таблица ${schema}.${name} не найдена в базе данных.`);
-        const refCons = tbl.cons.filter((con) => (con.type === 'f' && ['pid', 'org', 'grp'].indexOf(con.columns) === -1));
         let refCols;
-        if (refCons.length > 0) {
-            refCols = await DboTable.getRefColsByCons(connect._connect, refCons);
-            if (!joinWithoutUniq) refCols = refCols.filter((f) => f.unique_cols !== null);
+        if (!base) {
+            const refCons = tbl.cons.filter((con) => (con.type === 'f' && ['pid', 'org', 'grp'].indexOf(con.columns) === -1));
+            if (refCons.length > 0) {
+                refCols = await DboTable.getRefColsByCons(connect._connect, refCons);
+                if (!joinWithoutUniq) refCols = refCols.filter((f) => f.unique_cols !== null);
+            }
         }
         const s = createView(tbl, refCols);
         const mtch = s.match(/^create or replace view (\S+)\.(\S+) as ([\s\S]+)$/m);
