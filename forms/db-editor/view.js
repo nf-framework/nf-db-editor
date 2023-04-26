@@ -36,10 +36,10 @@ export default class DbEditorView extends PlForm {
             </pl-flex-layout>
             <pl-dropdown id="ddGen">
                 <pl-flex-layout vertical>
-                    <pl-combobox label="Схема" value="{{gen.schema}}" data="[[schemas]]" value-property="code" text-property="code" required></pl-combobox>
-                    <pl-combobox label="Таблица" value="{{gen.name}}" data="[[tabl]]" value-property="code" text-property="code" required></pl-combobox>
-                    <pl-checkbox label="Соединять таблицы без уникальных ключей" checked="{{gen.joinWithoutUniq}}"></pl-checkbox>
-                    <pl-checkbox label="Базовая (только поля таблицы)" checked="{{gen.base}}"></pl-checkbox>
+                    <pl-combobox label="Схема" value="{{gen.schema}}" data="[[schemas]]" value-property="code" text-property="code" orientation="horizontal" required></pl-combobox>
+                    <pl-combobox label="Таблица" value="{{gen.name}}" data="[[tabl]]" value-property="code" text-property="code" orientation="horizontal" required></pl-combobox>
+                    <pl-checkbox label="Соединять таблицы без уникальных ключей" checked="{{gen.joinWithoutUniq}}" orientation="horizontal"></pl-checkbox>
+                    <pl-checkbox label="Базовая (только поля таблицы)" checked="{{gen.base}}" orientation="horizontal"></pl-checkbox>
                     <pl-button label="Выполнить" on-click="[[genByTable]]"></pl-button>
                 </pl-flex-layout>
             </pl-dropdown>
@@ -139,7 +139,7 @@ export default class DbEditorView extends PlForm {
         const genScript = await this.$.aGenScript.execute(this.gen);
         if (genScript) {
             this.set('view.schema', genScript.schema);
-            this.set('view.name', genScript.name);
+            this.set('view.name', this.gen.base ? `${genScript.name}8base` : genScript.name);
             this.set('view.body', genScript.body);
         }
         this.$.ddGen.close();

@@ -32,7 +32,7 @@ export default class DbEditorObjects extends PlForm {
                 height: 100%;
             }
             .schemas-grid {
-                height: 240px;
+                height: 300px;
                 width: 100%;
             }
         `;
