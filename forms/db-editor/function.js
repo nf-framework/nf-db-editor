@@ -1,4 +1,4 @@
-import { html, css } from "polylib";
+import { html } from "polylib";
 import { PlForm } from "@nfjs/front-pl/components/pl-form.js";
 import { cloneDeep, clearObj } from "@nfjs/core/api/common";
 
@@ -53,14 +53,6 @@ export default class DbEditorFunction extends PlForm {
             action: {},
             obj: {}
         }
-    }
-
-    static get css() {
-        return css`
-            .code {
-                height: 400px;
-            }
-        `
     }
 
     static get template() {
@@ -138,7 +130,7 @@ export default class DbEditorFunction extends PlForm {
                         </pl-flex-layout>
                         <pl-icon-button iconset="pl-default" slot="header-suffix" icon="plus-s" variant="ghost" on-click="[[addArg]]"></pl-icon-button>
                     </pl-card>  
-                    <pl-card header="Код" style="width: 100%;">
+                    <pl-card header="Код" fit>
                         <pl-codeeditor value="{{fnc.body}}" editor="{{editor}}" class="code" mode="ace/mode/sql"></pl-codeeditor>
                     </pl-card>
                 </pl-flex-layout>    
