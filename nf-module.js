@@ -61,7 +61,7 @@ async function init() {
                 }
                 context.send({ data: res });
             } catch (e) {
-                context.code(500).send(e.message);
+                context.message(e.message).code(500).send();
             } finally {
                 if (connect) connect.release();
             }
@@ -89,6 +89,8 @@ async function init() {
                     indexIdentifierPattern: '^i4[a-z]{1}[0-9a-z_]*$',
                     columnIdentifierPattern: '^[a-z]{1}[0-9a-z_]*$',
                     constraintIdentifierPattern: '^(ch|fk|uk|ex|pk)4[a-z]{1}[0-9a-z_]*$',
+                    objectIdentifierPrefixDelimiter: '4',
+                    objectIdentifierPostfixDelimiter: '8'
                 }, config?.['@nfjs/db-editor']?.ui ?? {})
             });
         }
@@ -104,7 +106,7 @@ async function init() {
                 const resMethodExec = await api[method](context, context.body.args);
                 context.send({ data: resMethodExec});
             } catch (e) {
-                context.code(500).send(e.message);
+                context.message(e.message).code(500).send();
             }
         }
     );

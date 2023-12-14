@@ -121,8 +121,8 @@ export default class DbEditorTable extends PlForm {
             }
             
             .consCode {
-                height: 300px;
-                width: 300px;
+                height: 400px;
+                width: 600px;
             }
 
             pl-card {
@@ -531,12 +531,16 @@ export default class DbEditorTable extends PlForm {
 
     getObjName(prefix='',postfix='',addSchema=false) {
         const {tablename, schema} = this.tabl;
-        return `${(addSchema)?schema+'.':''}${(prefix)?prefix+'4':''}${tablename}${(postfix)?'8'+postfix:''}`;
+        const prefixDelimiter = this.config.objectIdentifierPrefixDelimiter;
+        const postfixDelimiter = this.config.objectIdentifierPostfixDelimiter;
+        return `${(addSchema)?schema+'.':''}${(prefix)?prefix+prefixDelimiter:''}${tablename}${(postfix)?postfixDelimiter+postfix:''}`;
     }
 
     getFixes(name) {
-        const prefix = name.substring(0,name.indexOf('4'));
-        let postfix = name.lastIndexOf('8');
+        const prefixDelimiter = this.config.objectIdentifierPrefixDelimiter;
+        const postfixDelimiter = this.config.objectIdentifierPostfixDelimiter;
+        const prefix = name.substring(0,name.indexOf(prefixDelimiter));
+        let postfix = name.lastIndexOf(postfixDelimiter);
         postfix = (postfix === -1)?'':name.substring(postfix+1);
         return {
             prefix,
