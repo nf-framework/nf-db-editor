@@ -61,7 +61,7 @@ async function init() {
                 }
                 context.send({ data: res });
             } catch (e) {
-                context.message(e.message).code(500).send();
+                context.code(500).send(e.message);
             } finally {
                 if (connect) connect.release();
             }
@@ -106,7 +106,7 @@ async function init() {
                 const resMethodExec = await api[method](context, context.body.args);
                 context.send({ data: resMethodExec});
             } catch (e) {
-                context.message(e.message).code(500).send();
+                context.code(500).send(e.message);
             }
         }
     );
