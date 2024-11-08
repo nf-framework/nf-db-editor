@@ -888,6 +888,7 @@ export default class DbEditorTable extends PlForm {
         }
         // добавить или удалить индекс и ограничение на колонку - внешний ключ
         const [,sub,subIndex,prop] = mutation.path.split('.');
+        // при стирании поля - внешнего ключа
         if (mutation.action === 'upd' && sub === 'cols' && prop === 'fk_tablename'){
             const { name } = this.tabl.cols[subIndex];
             if (!!mutation.value) {
@@ -895,6 +896,12 @@ export default class DbEditorTable extends PlForm {
             } else {
                 this._toggleRefColumn(name, false, {keepColumn: true});
             }
+        }
+        // при удалении колонки
+        if (mutation.action === 'splice' && sub === 'cols'){
+            (mutation.deleted || []).forEach(col => {
+                this._toggleRefColumn(col.name, false, {keepColumn: true}); //keepColumn иначе цикл образуется
+            })
         }
     }
 
