@@ -61,7 +61,8 @@ async function init() {
                 }
                 context.send({ data: res });
             } catch (e) {
-                context.code(500).send(e.message);
+                const err = nfApi.nfError(e, e.message);
+                context.send(err.json());
             } finally {
                 if (connect) connect.release();
             }
@@ -106,7 +107,8 @@ async function init() {
                 const resMethodExec = await api[method](context, context.body.args);
                 context.send({ data: resMethodExec});
             } catch (e) {
-                context.code(500).send(e.message);
+                const err = nfApi.nfError(e, e.message);
+                context.send(err.json());
             }
         }
     );
